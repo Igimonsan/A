@@ -1,0 +1,72 @@
+Mulai
+
+    Inisialisasi listSewa sebagai list kosong
+    Inisialisasi listMobil dengan jenis mobil yang tersedia
+    Inisialisasi hargaMobil dengan harga sewa per hari mobil tersebut
+
+    Tampilkan identitas pengguna (Nama, Kelas, Nim)
+
+    Selama true (loop menu utama):
+        Tampilkan Menu Utama:
+            1. Isi Formulir Sewa
+            2. Lihat Laporan
+            3. Hapus Data
+            4. Edit Data
+            5. Tambah Jenis Mobil
+            6. Selesai
+            7. Tampilkan Laporan Per Pelanggan
+        Minta input pilihan menu
+
+        Jika menu == 1 (Isi Formulir Sewa):
+            Minta input nama penyewa
+            Tampilkan pilihan mobil yang tersedia
+            Minta input pilihan mobil
+            Minta input lama sewa
+            Hitung total biaya berdasarkan harga mobil dan lama sewa
+            Tambahkan data sewa ke listSewa
+            Tampilkan pesan sukses
+
+        Jika menu == 2 (Lihat Laporan):
+            Jika listSewa kosong:
+                Tampilkan "Tidak ada data sewa"
+            Else:
+                Tampilkan laporan dengan detail penyewa, mobil, lama sewa, dan total biaya
+
+        Jika menu == 3 (Hapus Data):
+            Jika listSewa kosong:
+                Tampilkan "Tidak ada data untuk dihapus"
+            Else:
+                Tampilkan semua data penyewa yang terdaftar
+                Minta input nomor data yang ingin dihapus
+                Hapus data dari listSewa
+                Tampilkan pesan sukses
+
+        Jika menu == 4 (Edit Data):
+            Jika listSewa kosong:
+                Tampilkan "Tidak ada data untuk diedit"
+            Else:
+                Tampilkan semua data penyewa yang terdaftar
+                Minta input nomor data yang ingin diedit
+                Update nama penyewa, mobil yang disewa, dan lama sewa
+                Hitung ulang total biaya
+                Tampilkan pesan sukses
+
+        Jika menu == 5 (Tambah Jenis Mobil):
+            Minta input nama mobil baru
+            Minta input harga sewa per hari untuk mobil baru
+            Tambahkan mobil baru ke listMobil dan hargaMobil
+            Tampilkan pesan sukses
+
+        Jika menu == 7 (Tampilkan Laporan Per Pelanggan):
+            Jika listSewa kosong:
+                Tampilkan "Tidak ada data sewa"
+            Else:
+                Tampilkan daftar penyewa
+                Minta input nomor penyewa yang ingin dilihat detailnya
+                Tampilkan detail penyewa yang dipilih
+
+        Jika menu == 6 (Selesai):
+            Tampilkan pesan "Terima kasih"
+            Keluar dari program
+
+    Selesai
