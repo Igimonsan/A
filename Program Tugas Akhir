@@ -1,0 +1,206 @@
+package tugas;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class DataSewa {
+    String namaPenyewa;
+    String jenisMobil;
+    int lamaSewa;
+    int totalBiaya;
+
+    public DataSewa(String namaPenyewa, String jenisMobil, int lamaSewa, int totalBiaya) {
+        this.namaPenyewa = namaPenyewa;
+        this.jenisMobil = jenisMobil;
+        this.lamaSewa = lamaSewa;
+        this.totalBiaya = totalBiaya;
+    }
+}
+
+public class TugasAkhir {
+    static ArrayList<DataSewa> listSewa = new ArrayList<>();
+    static ArrayList<String> listMobil = new ArrayList<>();
+    static ArrayList<Integer> hargaMobil = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Data mobil awal
+        listMobil.add("Toyota Innova");
+        hargaMobil.add(400000);
+        listMobil.add("Mitsubishi Xpander");
+        hargaMobil.add(350000);
+        listMobil.add("All New Avanza");
+        hargaMobil.add(300000);
+        listMobil.add("Toyota Fortuner");
+        hargaMobil.add(799000);
+        listMobil.add("Mitsubishi Pajero");
+        hargaMobil.add(799000);
+        listMobil.add("Toyota Alphard");
+        hargaMobil.add(1250000);
+
+        // Menu utama
+        while (true) {
+            System.out.println("Nama :            Muhammad Nur Ihsan");
+            System.out.println("kelas:            1P41");
+            System.out.println("Nim  :            24.240.0042");
+
+            System.out.println("\nMENU UTAMA");
+            System.out.println("1. Isi Formulir Sewa");
+            System.out.println("2. Lihat Laporan");
+            System.out.println("3. Hapus Data");
+            System.out.println("4. Edit Data");
+            System.out.println("5. Tambah Jenis Mobil");
+            System.out.println("6. Selesai");
+            System.out.println("7. Tampilkan Laporan Per Pelanggan");
+            System.out.print("Pilih Menu [1-7]: ");
+            int menu = scanner.nextInt();
+
+            if (menu == 1) {
+                // Isi formulir sewa
+                System.out.print("Masukkan Nama Penyewa: ");
+                scanner.nextLine(); // membersihkan buffer
+                String namaPenyewa = scanner.nextLine();
+
+                System.out.println("\nPilih Mobil:");
+                for (int i = 0; i < listMobil.size(); i++) {
+                    System.out.println((i + 1) + ". " + listMobil.get(i) + " (Rp " + hargaMobil.get(i) + "/Hari)");
+                }
+                System.out.print("Pilih Mobil (1-" + listMobil.size() + "): ");
+                int pilihanMobil = scanner.nextInt() - 1;
+
+                System.out.print("Masukkan Lama Sewa (dalam hari): ");
+                int lamaSewa = scanner.nextInt();
+
+                int totalBiaya = hargaMobil.get(pilihanMobil) * lamaSewa;
+
+                // Tambahkan ke daftar sewa
+                listSewa.add(new DataSewa(namaPenyewa, listMobil.get(pilihanMobil), lamaSewa, totalBiaya));
+                System.out.println("Data sewa berhasil ditambahkan!");
+
+            } else if (menu == 2) {
+                // Lihat laporan
+                if (listSewa.isEmpty()) {
+                    System.out.println("\nTidak ada data sewa.");
+                } else {
+                    System.out.println("\nLAPORAN SEWA MOBIL");
+                    System.out.println("+----------------------------------------------------------------------------------+");
+                    System.out.println("| No |    Nama Penyewa   |      Jenis Mobil       | Lama Sewa (Hari) | Total Biaya |");
+                    System.out.println("+----------------------------------------------------------------------------------+");
+                    for (int i = 0; i < listSewa.size(); i++) {
+                        DataSewa data = listSewa.get(i);
+                        System.out.printf("| %2d | %-17s |   %-19s  | %16d | Rp %-9d|\n", 
+                                          i + 1, data.namaPenyewa, data.jenisMobil, data.lamaSewa, data.totalBiaya);
+                    }
+                    System.out.println("+----------------------------------------------------------------------------------+");
+                }
+
+            } else if (menu == 3) {
+                // Hapus data
+                if (listSewa.isEmpty()) {
+                    System.out.println("\nTidak ada data untuk dihapus.");
+                } else {
+                    System.out.println("\nPilih nomor data yang ingin dihapus:");
+                    for (int i = 0; i < listSewa.size(); i++) {
+                        System.out.println((i + 1) + ". " + listSewa.get(i).namaPenyewa + " - " + listSewa.get(i).jenisMobil);
+                    }
+                    System.out.print("Masukkan nomor data: ");
+                    int hapusIndex = scanner.nextInt() - 1;
+
+                    if (hapusIndex >= 0 && hapusIndex < listSewa.size()) {
+                        listSewa.remove(hapusIndex);
+                        System.out.println("Data berhasil dihapus.");
+                    } else {
+                        System.out.println("Nomor data tidak valid.");
+                    }
+                }
+
+            } else if (menu == 4) {
+                // Edit data
+                if (listSewa.isEmpty()) {
+                    System.out.println("\nTidak ada data untuk diedit.");
+                } else {
+                    System.out.println("\nPilih nomor data yang ingin diedit:");
+                    for (int i = 0; i < listSewa.size(); i++) {
+                        System.out.println((i + 1) + ". " + listSewa.get(i).namaPenyewa + " - " + listSewa.get(i).jenisMobil);
+                    }
+                    System.out.print("Masukkan nomor data: ");
+                    int editIndex = scanner.nextInt() - 1;
+
+                    if (editIndex >= 0 && editIndex < listSewa.size()) {
+                        DataSewa data = listSewa.get(editIndex);
+                        System.out.print("Masukkan Nama Penyewa Baru: ");
+                        scanner.nextLine(); // membersihkan buffer
+                        data.namaPenyewa = scanner.nextLine();
+
+                        System.out.println("\nPilih Mobil Baru:");
+                        for (int i = 0; i < listMobil.size(); i++) {
+                            System.out.println((i + 1) + ". " + listMobil.get(i) + " (Rp " + hargaMobil.get(i) + "/Hari)");
+                        }
+                        System.out.print("Pilih Mobil (1-" + listMobil.size() + "): ");
+                        int pilihanMobil = scanner.nextInt() - 1;
+
+                        System.out.print("Masukkan Lama Sewa Baru (dalam hari): ");
+                        data.lamaSewa = scanner.nextInt();
+
+                        data.jenisMobil = listMobil.get(pilihanMobil);
+                        data.totalBiaya = hargaMobil.get(pilihanMobil) * data.lamaSewa;
+
+                        System.out.println("Data berhasil diperbarui!");
+                    } else {
+                        System.out.println("Nomor data tidak valid.");
+                    }
+                }
+
+            } else if (menu == 5) {
+                // Tambah jenis mobil
+                System.out.print("Masukkan Nama Mobil Baru: ");
+                scanner.nextLine(); // membersihkan buffer
+                String namaMobilBaru = scanner.nextLine();
+
+                System.out.print("Masukkan Harga Sewa Per Hari: ");
+                int hargaMobilBaru = scanner.nextInt();
+
+                listMobil.add(namaMobilBaru);
+                hargaMobil.add(hargaMobilBaru);
+
+                System.out.println("Mobil baru berhasil ditambahkan!");
+
+            } else if (menu == 7) {
+                // Tampilkan laporan per pelanggan berdasarkan nomor penyewa
+                if (listSewa.isEmpty()) {
+                    System.out.println("\nTidak ada data sewa yang tersedia.");
+                } else {
+                    System.out.println("\nDAFTAR PENYEWA:");
+                    for (int i = 0; i < listSewa.size(); i++) {
+                        System.out.println((i + 1) + ". " + listSewa.get(i).namaPenyewa + " - " + listSewa.get(i).jenisMobil);
+                    }
+
+                    System.out.print("Masukkan nomor penyewa (1-" + listSewa.size() + "): ");
+                    int nomorPenyewa = scanner.nextInt() - 1;
+
+                    if (nomorPenyewa >= 0 && nomorPenyewa < listSewa.size()) {
+                        DataSewa data = listSewa.get(nomorPenyewa);
+                        System.out.println("\n------------------------------------");
+                        System.out.println("Nama Penyewa    : " + data.namaPenyewa);
+                        System.out.println("Jenis Mobil     : " + data.jenisMobil);
+                        System.out.println("Lama Sewa       : " + data.lamaSewa + " hari");
+                        System.out.println("Total Biaya     : Rp " + data.totalBiaya);
+                        System.out.println("------------------------------------");
+                    } else {
+                        System.out.println("Nomor penyewa tidak valid.");
+                    }
+                }
+
+            } else if (menu == 6) {
+                // Selesai
+                System.out.println("Terima kasih telah menggunakan layanan kami.");
+                break;
+            } else {
+                System.out.println("Menu tidak valid.");
+            }
+        }
+
+        scanner.close();
+    }
+}
