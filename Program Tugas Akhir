@@ -79,20 +79,49 @@ public class TugasAkhir {
                 System.out.println("Data sewa berhasil ditambahkan!");
 
             } else if (menu == 2) {
-                // Lihat laporan
+                // Lihat laporan dengan pagination
                 if (listSewa.isEmpty()) {
                     System.out.println("\nTidak ada data sewa.");
                 } else {
-                    System.out.println("\nLAPORAN SEWA MOBIL");
-                    System.out.println("+----------------------------------------------------------------------------------+");
-                    System.out.println("| No |    Nama Penyewa   |      Jenis Mobil       | Lama Sewa (Hari) | Total Biaya |");
-                    System.out.println("+----------------------------------------------------------------------------------+");
-                    for (int i = 0; i < listSewa.size(); i++) {
-                        DataSewa data = listSewa.get(i);
-                        System.out.printf("| %2d | %-17s |   %-19s  | %16d | Rp %-9d|\n", 
-                                          i + 1, data.namaPenyewa, data.jenisMobil, data.lamaSewa, data.totalBiaya);
+                    final int DATA_PER_HALAMAN = 3;
+                    int totalData = listSewa.size();
+                    int totalHalaman = (int) Math.ceil((double) totalData / DATA_PER_HALAMAN);
+
+                    int halamanSaatIni = 1;
+
+                    while (true) {
+                        int startIndex = (halamanSaatIni - 1) * DATA_PER_HALAMAN;
+                        int endIndex = Math.min(startIndex + DATA_PER_HALAMAN, totalData);
+
+                        System.out.println("\nLAPORAN SEWA MOBIL - Halaman " + halamanSaatIni + " dari " + totalHalaman);
+                        System.out.println("+----------------------------------------------------------------------------------+");
+                        System.out.println("| No |    Nama Penyewa   |      Jenis Mobil       | Lama Sewa (Hari) | Total Biaya |");
+                        System.out.println("+----------------------------------------------------------------------------------+");
+                        for (int i = startIndex; i < endIndex; i++) {
+                            DataSewa data = listSewa.get(i);
+                            System.out.printf("| %2d | %-17s |   %-19s  | %16d | Rp %-9d|\n",
+                                              i + 1, data.namaPenyewa, data.jenisMobil, data.lamaSewa, data.totalBiaya);
+                        }
+                        System.out.println("+----------------------------------------------------------------------------------+");
+
+                        // Navigasi halaman
+                        System.out.println("\nNavigasi Halaman:");
+                        System.out.println("1. Halaman Sebelumnya");
+                        System.out.println("2. Halaman Berikutnya");
+                        System.out.println("3. Kembali ke Menu Utama");
+                        System.out.print("Pilih opsi [1-3]: ");
+                        int navigasi = scanner.nextInt();
+
+                        if (navigasi == 1 && halamanSaatIni > 1) {
+                            halamanSaatIni--;
+                        } else if (navigasi == 2 && halamanSaatIni < totalHalaman) {
+                            halamanSaatIni++;
+                        } else if (navigasi == 3) {
+                            break;
+                        } else {
+                            System.out.println("Opsi tidak valid.");
+                        }
                     }
-                    System.out.println("+----------------------------------------------------------------------------------+");
                 }
 
             } else if (menu == 3) {
